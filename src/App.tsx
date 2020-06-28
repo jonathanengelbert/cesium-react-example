@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import { Ion, Viewer } from "cesium";
+import {Ion, Viewer, Cesium3DTileset} from "cesium";
 import {styles} from './utils/featureStyles';
 import {
     makeHome,
@@ -8,6 +8,7 @@ import {
 } from "./utils/viewConfig";
 
 import { addTileset } from "./utils/layerHandling";
+import {viewerLeftClick} from "./utils/viewerEvents";
 import './App.scss';
 
 // @ts-ignore
@@ -15,27 +16,49 @@ Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_TOKEN;
 
 const App = () => {
     const viewerContainer = useRef<HTMLDivElement>(null);
-    const [floors, setFloors] = useState<Object>([]);
-    let viewer: any; // This will be raw Cesium's Viewer object.
-    function inializeViewer() {
-        // @ts-ignore
-        viewer = new Viewer('viewerContainer');
-    }
+    const [floors, setFloors] = useState<Cesium3DTileset | null>(null);
+    const [contextuals, setContextuals] = useState<Cesium3DTileset | null>(null);
+    const [viewer, setViewer] = useState<any>();
+
 
     useEffect(() => {
-        if(viewerContainer) {
-            inializeViewer();
+        function initializeViewer() {
+            // @ts-ignore
+            setViewer(new Viewer(viewerContainer.current));
+        }
+        if(viewer){
+            // viewerLeftClick(viewer, floors);
+
+            // Sets scene configuration
             initializeMapboxBasemap(viewer);
             makeHome(viewer);
             loadTerrain(viewer);
 
+            // Adds layers
             setFloors(addTileset(viewer, 78267));
-            console.log(floors)
+            setContextuals(addTileset(viewer, 76644));
         }
-    }, [viewerContainer]);
+        if(!viewer) initializeViewer()
+    },[viewer]) ;
+
+    // events config
+    useEffect(() => {
+        if(viewer){
+            viewerLeftClick(viewer, floors);
+        }
+    },[viewer, floors]);
+
+    // contextual layer config
+    useEffect(() => {
+        if(contextuals) {
+            contextuals.style = styles.transparentStyle;
+            contextuals.show = false;
+        }
+    }, [contextuals]);
+
 
     return (
-        <div ref={viewerContainer} id={'viewerContainer'}>
+        <div ref={viewerContainer} className={'viewer-container'}>
         </div>
     );
 };
