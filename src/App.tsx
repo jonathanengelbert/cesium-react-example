@@ -10,6 +10,7 @@ import {
 import { addTileset } from "./utils/layerHandling";
 import {viewerLeftClick} from "./utils/viewerEvents";
 import Controls from "./Controls/Controls";
+import Sidepopup from "./Popup/Popup";
 import './App.scss';
 
 // @ts-ignore
@@ -68,6 +69,7 @@ const App = () => {
             <Controls
                 toggleContextuals={toggleContextuals}
             />
+            <Sidepopup/>
         </div>
     );
 };
