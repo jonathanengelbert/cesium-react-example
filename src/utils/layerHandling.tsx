@@ -7,6 +7,4 @@ export const addTileset = (viewer: any, assetId: number) => {
     tileset.readyPromise
         .then((tileset: Cesium3DTileset) => positionTileset(tileset));
     return tileset;
-}
-// const contextuals = viewer.scene.primitives.add(new Cesium3DTileset({url: IonResource.fromAssetId(76644)}));
-// const floors = viewer.scene.primitives.add(new Cesium3DTileset({url: IonResource.fromAssetId(78267)}))
+};

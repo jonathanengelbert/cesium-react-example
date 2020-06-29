@@ -59,6 +59,7 @@ const Controls = (props: Props) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     onChange={(e) => setOwner(e.target.value)}
+                    value={''}
                 >
                     {makeOwnerList(owners)}
                 </Select>
@@ -66,6 +67,7 @@ const Controls = (props: Props) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     onChange={(e) => setTenant(e.target.value)}
+                    value={''}
                 >
                     {makeTenantList(tenants)}
                 </Select>

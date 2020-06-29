@@ -7,9 +7,10 @@ import {
     loadTerrain,
 } from "./utils/viewConfig";
 
-import { addTileset } from "./utils/layerHandling";
+import {addTileset} from "./utils/layerHandling";
 import {viewerLeftClick} from "./utils/viewerEvents";
 import Controls from "./Controls/Controls";
+import Sidepopup from "./SidePopup/SidePopup";
 import './App.scss';
 
 // @ts-ignore
@@ -20,6 +21,7 @@ const App = () => {
     const [floors, setFloors] = useState<Cesium3DTileset | null>(null);
     const [contextuals, setContextuals] = useState<Cesium3DTileset | null>(null);
     const [viewer, setViewer] = useState<any>();
+    const [selectedFloorProperties, setSelectedFloorProperties] = useState<any>();
 
 
     useEffect(() => {
@@ -27,7 +29,8 @@ const App = () => {
             // @ts-ignore
             setViewer(new Viewer(viewerContainer.current));
         }
-        if(viewer){
+
+        if (viewer) {
             // viewerLeftClick(viewer, floors);
 
             // Sets scene configuration
@@ -39,26 +42,26 @@ const App = () => {
             setFloors(addTileset(viewer, 78267));
             setContextuals(addTileset(viewer, 76644));
         }
-        if(!viewer) initializeViewer()
-    },[viewer]) ;
+        if (!viewer) initializeViewer()
+    }, [viewer]);
 
     // events config
     useEffect(() => {
-        if(viewer){
-            viewerLeftClick(viewer, floors);
+        if (viewer) {
+            viewerLeftClick(viewer, floors, setSelectedFloorProperties, selectedFloorProperties);
         }
-    },[viewer, floors]);
+    }, [viewer, floors, selectedFloorProperties]);
 
     // contextual layer config
     useEffect(() => {
-        if(contextuals) {
+        if (contextuals) {
             contextuals.style = styles.transparentStyle;
             contextuals.show = false;
         }
     }, [contextuals]);
 
-    function toggleContextuals(){
-        if(contextuals){
+    function toggleContextuals() {
+        if (contextuals) {
             contextuals.show = !contextuals.show;
         }
     }
@@ -68,6 +71,15 @@ const App = () => {
             <Controls
                 toggleContextuals={toggleContextuals}
             />
+            {
+                selectedFloorProperties
+                    ?
+                    <Sidepopup
+                        selectedFloorProperties={selectedFloorProperties}
+                    />
+                    :
+                    null
+            }
         </div>
     );
 };
