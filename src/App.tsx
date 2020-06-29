@@ -9,6 +9,7 @@ import {
 
 import { addTileset } from "./utils/layerHandling";
 import {viewerLeftClick} from "./utils/viewerEvents";
+import Controls from "./Controls/Controls";
 import './App.scss';
 
 // @ts-ignore
@@ -56,9 +57,17 @@ const App = () => {
         }
     }, [contextuals]);
 
+    function toggleContextuals(){
+        if(contextuals){
+            contextuals.show = !contextuals.show;
+        }
+    }
 
     return (
         <div ref={viewerContainer} className={'viewer-container'}>
+            <Controls
+                toggleContextuals={toggleContextuals}
+            />
         </div>
     );
 };
