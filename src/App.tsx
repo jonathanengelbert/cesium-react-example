@@ -1,5 +1,9 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Ion, Viewer, Cesium3DTileset, Cesium3DTileStyle} from "cesium";
+import {Ion,
+        Viewer,
+        Cesium3DTileset,
+} from "cesium";
+
 import {styles} from './utils/featureStyles';
 import {
     makeHome,
@@ -11,6 +15,7 @@ import {addTileset} from "./utils/layerHandling";
 import {viewerLeftClick} from "./utils/viewerEvents";
 import Controls from "./Controls/Controls";
 import Sidepopup from "./SidePopup/SidePopup";
+
 import './App.scss';
 
 // @ts-ignore
@@ -65,6 +70,7 @@ const App = () => {
             contextuals.show = !contextuals.show;
         }
     }
+
 
     return (
         <div ref={viewerContainer} className={'viewer-container'}>
