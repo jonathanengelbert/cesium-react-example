@@ -7,3 +7,8 @@
   position: relative;
   z-index: 900;
 }
+
+.cesium-sceneModePicker-button3D, .cesium-viewer-bottom {
+  display: none !important;
+}
+

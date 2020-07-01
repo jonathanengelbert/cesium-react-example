@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 
 import './controlsStyles.scss';
 // MATERIAL UI CONFIG
-import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -11,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import {tenants, owners} from "../data/data";
 import {colorFloors, makeMatchList} from "../utils/viewerEvents";
-import {styles} from "../utils/featureStyles";
+import {FormGroup} from "@material-ui/core";
 
 
 type Props = {
@@ -25,7 +24,7 @@ const tenantList = Array.from(new Set(Object.values(tenants).sort()));
 const makeOwnerList = (props: any) => {
     return (
         props.map((i: any) =>
-            <MenuItem value={i}>{i}</MenuItem>
+            <MenuItem key={i} value={i}>{i}</MenuItem>
         )
     )
 };
@@ -33,15 +32,15 @@ const makeOwnerList = (props: any) => {
 const makeTenantList = (props: any) => {
     return (
         props.map((i: any) =>
-            <MenuItem value={i}>{i}</MenuItem>
+            <MenuItem key={i} value={i}>{i}</MenuItem>
         )
     )
 };
 
 const Controls = (props: Props) => {
     const [contextualsChecked, setContextualsChecked] = useState(false);
-    const [owner, setOwner] = useState<any>(null);
-    const [tenant, setTenant] = useState<any>(null);
+    const [owner, setOwner] = useState<any>('');
+    const [tenant, setTenant] = useState<any>('');
 
 
     function toggleContextuals() {
@@ -53,7 +52,7 @@ const Controls = (props: Props) => {
     useEffect(() => {
         if (owner) {
             if (tenant) {
-                setTenant(null);
+                setTenant('');
             }
             const buildingList = makeMatchList(owners, owner);
             colorFloors(props.floors, 'PropertyID', buildingList);
@@ -64,7 +63,7 @@ const Controls = (props: Props) => {
     useEffect(() => {
         if (tenant) {
             if (owner) {
-                setOwner(null);
+                setOwner('');
             }
             const buildingList = makeMatchList(tenants, tenant, true);
             colorFloors(props.floors, 'floor_id', buildingList);
@@ -73,33 +72,36 @@ const Controls = (props: Props) => {
 
     return (
         <div className={"controls-container"}>
-            <h2>Controls</h2>
-            <FormControl>
-                <FormControlLabel
-                    control={<Checkbox checked={contextualsChecked}
-                                       name="checkedA"/>}
-                    onChange={() => toggleContextuals()}
-                    label="Show Contextual Buildings"
+            <FormControlLabel
+                control={<Checkbox checked={contextualsChecked}
+                                   name="checkedA"/>}
+                onChange={() => toggleContextuals()}
+                label="Show Contextual Buildings"
 
-                />
-                <InputLabel id="demo-simple-select-label">Owner</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    onChange={(e) => setOwner(e.target.value)}
-                    value={owner}
-                >
-                    {makeOwnerList(ownerList)}
-                </Select>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    onChange={(e) => setTenant(e.target.value)}
-                    value={tenant}
-                >
-                    {makeTenantList(tenantList)}
-                </Select>
-            </FormControl>
+            />
+                <FormGroup>
+                    <InputLabel className="input-label" color={'secondary'} id="demo-simple-select-label">Owner</InputLabel>
+                    <Select
+                        className={"select-label"}
+                        labelId="demo-simple-select-label"
+                        id="owner-select"
+                        onChange={(e) => setOwner(e.target.value)}
+                        value={owner}
+                    >
+                        {makeOwnerList(ownerList)}
+                    </Select>
+                    <InputLabel className="input-label" id="tenant-select">Tenant</InputLabel>
+                    <Select
+                        className={"select-label"}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        onChange={(e) => setTenant(e.target.value)}
+                        value={tenant}
+                    >
+                        {makeTenantList(tenantList)}
+                    </Select>
+
+                </FormGroup>
 
         </div>
     )

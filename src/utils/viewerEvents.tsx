@@ -16,6 +16,7 @@ export const viewerLeftClick = (viewer: any, tileset: any, setter: Function, cur
         featureName: '',
         owner: '',
         tenant: '',
+        id: ''
     };
 
     // HANDLE CLICK OUTSIDE TILESET  (reset colors, empties property object, closes popup)
@@ -41,19 +42,17 @@ export const viewerLeftClick = (viewer: any, tileset: any, setter: Function, cur
         if (selectedFloor.currentFeature) {
             // @ts-ignore
             if (selectedFloor.currentFeature.getProperty('floor_id') === pickedFeature.getProperty('floor_id')) {
-                return
+                return 
             }
         }
 
         floorProperties.floorNumber = pickedFeature.getProperty('floor_number');
         floorProperties.featureName = pickedFeature.getProperty('Name');
+        floorProperties.id = pickedFeature.getProperty('PropertyID');
         // @ts-ignore
         floorProperties.tenant = tenants[pickedFeature.getProperty('floor_id')] || 'Vacant';
         // @ts-ignore
         floorProperties.owner = owners[pickedFeature.getProperty('PropertyID')];
-        // <tr><th>Tenant</th><td>  ${pickedFeature.getProperty('TenantName')}  </td></tr>
-        // @ts-ignore
-        floorProperties.id = pickedFeature.getProperty('PropertyID');
 
 
         // @ts-ignore
@@ -66,27 +65,13 @@ export const viewerLeftClick = (viewer: any, tileset: any, setter: Function, cur
 
         selectedFloor.currentFeature = pickedFeature;
         selectedFloor.previousColor = pickedFeature.color;
-        // tileset.style = styles.defaultStyle;
         pickedFeature.color = Color.RED.withAlpha(0.8);
         // TODO: Implement reverting to original color
 
-        console.log(floorProperties);
         return setter(floorProperties);
-        // @ts-ignore
-        // selectedEntity.description = '<table class="cesium-infoBox-defaultTable"><tbody>' +
-        //     `<tr><th>Building ID</th><td> ${pickedFeature.getProperty('PropertyID')}  </td></tr>
-        // <tr><th>Floor</th><td>  ${pickedFeature.getProperty('floor_number')}  </td></tr>
-        // <tr><th>Tenant</th><td>  ${pickedFeature.getProperty('TenantName')}  </td></tr>
-        // <tr><th>Owner</th><td>  ${pickedFeature.getProperty('Owner')}  </td></tr>
-        // <tr><th>LXD</th><td>  ${pickedFeature.getProperty('LeaseExpirationDate').toLocaleString()} </td></tr>
-        // <tr><th>Occupancy Status</th><td> ${pickedFeature.getProperty('OccupancyStatus')}  </td></tr>
-        // <tr><th>Floor Size</th><td> ${pickedFeature.getProperty('FloorSize')}  </td></tr>
-        // </tbody></table>`;
 
     }, ScreenSpaceEventType.LEFT_CLICK);
 };
-// const floorIds = ['42635-19', '42635-2', '805078-50', '42592-34'];
-// const floorIds = [42635, '42635-2', '805078-50', '42592-34'];
 
 function generateStyle(feature: string | number, arr: Array<string>) {
     let featureName;
@@ -123,11 +108,9 @@ export function colorFloors(featureSet: Cesium3DTileset, feature: string, arr: A
     // @ts-ignore
     featureSet.style = new Cesium3DTileStyle({
         color: {
-            // conditions: cond
             conditions: cond
         }
     });
-    console.log(cond)
 };
 
 export const makeMatchList = (feature: any, selector: string, isString = false) => {
@@ -141,7 +124,6 @@ export const makeMatchList = (feature: any, selector: string, isString = false) 
             matching.push(id)
         }
     }
-    console.log(matching)
     return matching;
 };
 
