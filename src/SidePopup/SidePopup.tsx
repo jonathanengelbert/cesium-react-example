@@ -10,13 +10,14 @@ type Props = {
 
 // @ts-ignore
 // const SidePopup = ({selectedFloorProperties: {floorId, floorNumber, featureName}}) => {
-const SidePopup = ({selectedFloorProperties: {featureName, floorNumber, floorId}}) => {
+const SidePopup = ({selectedFloorProperties: {featureName, floorNumber, tenant, owner}}) => {
     return (
         <div className={'side-popup'}>
             <div className={'side-popup-content'}>
                 <h1>{featureName}</h1>
                 <p>Floor Number: {floorNumber}</p>
-                <p>Floor Id: {floorId}</p>
+                <p>Tenant: {tenant}</p>
+                <p>Owner: {owner}</p>
             </div>
         </div>
     )
