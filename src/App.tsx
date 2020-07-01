@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Ion, Viewer, Cesium3DTileset} from "cesium";
+import {Ion, Viewer, Cesium3DTileset, Cesium3DTileStyle} from "cesium";
 import {styles} from './utils/featureStyles';
 import {
     makeHome,
@@ -70,7 +70,10 @@ const App = () => {
         <div ref={viewerContainer} className={'viewer-container'}>
             <Controls
                 toggleContextuals={toggleContextuals}
+                floors={floors}
+
             />
+
             {
                 selectedFloorProperties
                     ?

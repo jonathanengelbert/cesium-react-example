@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './controlsStyles.scss';
 // MATERIAL UI CONFIG
@@ -9,16 +9,22 @@ import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 
+import {tenants, owners} from "../data/data";
+import {colorFloors, makeMatchList} from "../utils/viewerEvents";
+import {styles} from "../utils/featureStyles";
+
+
 type Props = {
     toggleContextuals: Function;
+    floors: any;
 }
 
-const owners = ['Person', 'Jake', 'Nigel'];
-const tenants = ['Nikers', 'Loke', 'MBL'];
+const ownerList = Array.from(new Set(Object.values(owners).sort()));
+const tenantList = Array.from(new Set(Object.values(tenants).sort()));
 
 const makeOwnerList = (props: any) => {
     return (
-        props.map((i: any)  =>
+        props.map((i: any) =>
             <MenuItem value={i}>{i}</MenuItem>
         )
     )
@@ -26,7 +32,7 @@ const makeOwnerList = (props: any) => {
 
 const makeTenantList = (props: any) => {
     return (
-        props.map((i: any)  =>
+        props.map((i: any) =>
             <MenuItem value={i}>{i}</MenuItem>
         )
     )
@@ -34,14 +40,36 @@ const makeTenantList = (props: any) => {
 
 const Controls = (props: Props) => {
     const [contextualsChecked, setContextualsChecked] = useState(false);
-    const [owner, setOwner] = useState<any>();
-    const [tenant, setTenant] = useState<any>();
+    const [owner, setOwner] = useState<any>(null);
+    const [tenant, setTenant] = useState<any>(null);
+
 
     function toggleContextuals() {
         setContextualsChecked(!contextualsChecked);
         props.toggleContextuals();
     }
 
+    // handling OWNER change
+    useEffect(() => {
+        if (owner) {
+            if (tenant) {
+                setTenant(null);
+            }
+            const buildingList = makeMatchList(owners, owner);
+            colorFloors(props.floors, 'PropertyID', buildingList);
+        }
+    }, [owner]);
+
+    // handling TENANT change
+    useEffect(() => {
+        if (tenant) {
+            if (owner) {
+                setOwner(null);
+            }
+            const buildingList = makeMatchList(tenants, tenant, true);
+            colorFloors(props.floors, 'floor_id', buildingList);
+        }
+    }, [tenant]);
 
     return (
         <div className={"controls-container"}>
@@ -59,17 +87,17 @@ const Controls = (props: Props) => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     onChange={(e) => setOwner(e.target.value)}
-                    value={''}
+                    value={owner}
                 >
-                    {makeOwnerList(owners)}
+                    {makeOwnerList(ownerList)}
                 </Select>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     onChange={(e) => setTenant(e.target.value)}
-                    value={''}
+                    value={tenant}
                 >
-                    {makeTenantList(tenants)}
+                    {makeTenantList(tenantList)}
                 </Select>
             </FormControl>
 
