@@ -26,7 +26,9 @@ An example of Cesium integrated with React and Typescript to create a 3D map of 
 
 Make a .env that takes two variables:
 <br>
+<br>
 REACT_APP_CESIUM_TOKEN:  You will need to register with [Cesium](https://cesium.com/) to retrieve assets from their cloud.
+<br>
 REACT_APP_MAPBOX_TOKEN:  You will need to register with [Mapbox](https://mapbox.com) and request a key for your app. This is not necessary if using the Cesium-provided base maps, but be aware that the initial basemap loaded by default in this app example will request a mapbox basemap.  
 
 `$ npm start`
@@ -35,6 +37,7 @@ REACT_APP_MAPBOX_TOKEN:  You will need to register with [Mapbox](https://mapbox.
 
 The goal of this project is to serve as a template for general 3D mapping that focuses on the handling of granular building data, such as building floors 
 and/or building spaces (floors further split into suites)
+<br>
 <br>
 The project may however, simply serve as a starting point or model for what porting Cesium to a React app is like, regardless of the context. 
 
@@ -53,6 +56,8 @@ And sub-dependencies of these modules
 ### Word of caution
 
 Cesium works poorly with react. At the time of this writing, its NPM package was still badly built and did not work without some further webpack/bundle manager configuration. This project uses [CRACO](https://github.com/gsoft-inc/craco) and [CRACO-CESIUM](https://www.npmjs.com/package/craco-cesium) to handle these issues, but frankly, it's a bit of hack.
+<br>
+<br>
 
 Overall performance issues and a bizarre bug where the client freezes when another tab is focused (difficult to replicate and still being investigated) are some of the reasons why I would caution anyone to carefully examine this code before using it in production, particularly its dependencies to CRACO/CRACO-CESIUM.
 
