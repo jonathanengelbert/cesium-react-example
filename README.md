@@ -55,7 +55,7 @@ And sub-dependencies of these modules
 
 ### Word of caution
 
-Cesium works poorly with react. At the time of this writing, its NPM package was still badly built and did not work without some further webpack/bundle manager configuration. This project uses [CRACO](https://github.com/gsoft-inc/craco) and [CRACO-CESIUM](https://www.npmjs.com/package/craco-cesium) to handle these issues, but frankly, it's a bit of hack.
+Cesium works poorly with react. At the time of this writing, its NPM package was still badly built and did not work without some further webpack/bundle manager configuration. This project uses [CRACO](https://github.com/gsoft-inc/craco) and [CRACO-CESIUM](https://www.npmjs.com/package/craco-cesium) to handle these issues, but frankly, it's a bit of a hack.
 <br>
 <br>
 
