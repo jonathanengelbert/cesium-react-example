@@ -1,44 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Cesium React Example
 
-## Available Scripts
+An example of Cesium integrated with React and Typescript to create a 3D map of buildings split into floors.
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+* [Live Demo](#live-demo)
+* [Installation](#installation)
+* [What is the project for?](#what-is-the-project-for)
+* [Technologies](#technologies)
+* [Contributing](#contributing)
+* [Authors](#authors)
+* [License](#license)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Live Demo
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+<https://3d-mapping-example.jonathanengelbert.com/> 
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+`$ git clone https://github.com/jonathanengelbert/cesium-react-example.git`
+<br>
+`$ cd cesium-react-example && npm install`
+<br>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Make a .env that takes two variables:
+<br>
+REACT_APP_CESIUM_TOKEN:  You will need to register with [Cesium](https://cesium.com/) to retrieve assets from their cloud.
+REACT_APP_MAPBOX_TOKEN:  You will need to register with [Mapbox](https://mapbox.com) and request a key for your app. This is not necessary if using the Cesium-provided base maps, but be aware that the initial basemap loaded by default in this app example will request a mapbox basemap.  
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+`$ npm start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### What is the project for?
 
-### `npm run eject`
+The goal of this project is to serve as a template for general 3D mapping that focuses on the handling of granular building data, such as building floors 
+and/or building spaces (floors further split into suites)
+<br>
+The project may however, simply serve as a starting point or model for what porting Cesium to a React app is like, regardless of the context. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Technologies 
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Typescript ^3.7.5 
+* React ^16.13.1
+* Material UI ^4.9.11
+* Mapbox GL ^1.9.0 
+* Node-Sass ^4.13.1
+* Cesium ^1.70.1
+* Craco ^5.6.4
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+And sub-dependencies of these modules
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Word of caution
 
-## Learn More
+Cesium works poorly with react. At the time of this writing, its NPM package was still badly built and did not work without some further webpack/bundle manager configuration. This project uses [CRACO](https://github.com/gsoft-inc/craco) and [CRACO-CESIUM](https://www.npmjs.com/package/craco-cesium) to handle these issues, but frankly, it's a bit of hack.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Overall performance issues and a bizarre bug where the client freezes when another tab is focused (difficult to replicate and still being investigated) are some of the reasons why I would caution anyone to carefully examine this code before using it in production, particularly its dependencies to CRACO/CRACO-CESIUM.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Contributing
+
+There are currently no set guidelines on how to contribute to this project, but contributions are welcome.
+Please reach out to the author of this project directly at <jonathanengelbert@gmail.com>
+
+### Authors
+
+* Jonathan Engelbert
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
