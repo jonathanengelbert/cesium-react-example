@@ -36,7 +36,7 @@ export function makeHome(viewer: any) {
 export function initializeMapboxBasemap(viewer: any) {
     const mapboxCustomBasemap = new MapboxStyleImageryProvider({
         styleId: 'dark-v10',
-        accessToken: process.env.REACT_APP_MAPBOX_TOKEN
+        accessToken: process.env.REACT_APP_MAPBOX_TOKEN as string
     });
     // Remove default base layer
     if (viewer) {

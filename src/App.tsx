@@ -16,7 +16,7 @@ import {viewerLeftClick} from "./utils/viewerEvents";
 import Controls from "./Controls/Controls";
 import Sidepopup from "./SidePopup/SidePopup";
 
-import './App.scss';
+import './App.css';
 
 // @ts-ignore
 Ion.defaultAccessToken = process.env.REACT_APP_CESIUM_TOKEN;

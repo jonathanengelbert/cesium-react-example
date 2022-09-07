@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import './controlsStyles.scss';
+import './controlsStyles.css';
 // MATERIAL UI CONFIG
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';

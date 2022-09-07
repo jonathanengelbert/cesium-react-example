@@ -15,7 +15,6 @@
     "@types/react-dom": "^16.9.8",
     "cesium": "^1.70.1",
     "craco-cesium": "^1.2.0",
-    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",

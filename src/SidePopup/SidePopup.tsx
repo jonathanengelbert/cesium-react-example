@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './sidePopupStyles.scss';
+import './sidePopupStyles.css';
 
 type Props = {
     // activeFeature: any | null | undefined
